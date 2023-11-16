@@ -38,7 +38,7 @@ public class MultiValueContainsAggregator implements Aggregator
   @Override
   public void aggregate()
   {
-    found = valueSelector.getObject().getValueSet().contains(value);
+    found = found || valueSelector.getObject().getValueSet().contains(value);
   }
 
   @Override

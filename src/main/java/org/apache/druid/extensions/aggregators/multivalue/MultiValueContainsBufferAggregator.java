@@ -44,7 +44,8 @@ public class MultiValueContainsBufferAggregator implements BufferAggregator
   public void aggregate(ByteBuffer buf, int position)
   {
     SerializableMultiValue object = valueSelector.getObject();
-    boolean found = object.getValueSet().contains(value);
+    boolean alreadyFound = buf.getInt(position) == 1;
+    boolean found = alreadyFound || object.getValueSet().contains(value);
     if (found) {
       buf.putInt(position, 1);
     } else {
