@@ -25,7 +25,6 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.inject.Binder;
 import org.apache.druid.extensions.aggregators.multivalue.sql.MultiValueHasOperatorConversion;
 import org.apache.druid.extensions.aggregators.multivalue.sql.MultiValueHasOptimizableFilter;
-import org.apache.druid.extensions.aggregators.multivalue.sql.MultiValueHasSqlAggregator;
 import org.apache.druid.initialization.DruidModule;
 import org.apache.druid.segment.serde.ComplexMetrics;
 import org.apache.druid.sql.guice.SqlBindings;
@@ -42,7 +41,6 @@ public class MultiValueAggregatorModule implements DruidModule
       new SimpleModule("com.mulesoft.druid.extensions.aggregators.multivalue.MultiValueAggregatorModule")
         .registerSubtypes(
           new NamedType(MultiValueAggregatorFactory.class, "multiValue"),
-          new NamedType(MultiValueContainsAggregatorFactory.class, "multiValueContains"),
           new NamedType(MultiValueHasOptimizableFilter.class, "multiValueHas")
         )
     );
@@ -52,7 +50,6 @@ public class MultiValueAggregatorModule implements DruidModule
   public void configure(Binder binder)
   {
     ComplexMetrics.registerSerde(SerializableMultiValueSerde.TYPE_NAME, new SerializableMultiValueSerde());
-    SqlBindings.addAggregator(binder, MultiValueHasSqlAggregator.class);
     SqlBindings.addOperatorConversion(binder, MultiValueHasOperatorConversion.class);
   }
 }
