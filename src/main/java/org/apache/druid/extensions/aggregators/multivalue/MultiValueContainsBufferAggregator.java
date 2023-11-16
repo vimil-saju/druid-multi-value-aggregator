@@ -38,38 +38,38 @@ public class MultiValueContainsBufferAggregator implements BufferAggregator
 
   public void init(ByteBuffer buf, int position)
   {
-    buf.putInt(0);
+    buf.putLong(position, 0);
   }
 
   public void aggregate(ByteBuffer buf, int position)
   {
     SerializableMultiValue object = valueSelector.getObject();
-    boolean alreadyFound = buf.getInt(position) == 1;
+    boolean alreadyFound = buf.getLong(position) == 1;
     boolean found = alreadyFound || object.getValueSet().contains(value);
     if (found) {
-      buf.putInt(position, 1);
+      buf.putLong(position, 1);
     } else {
-      buf.putInt(position, 0);
+      buf.putLong(position, 0);
     }
   }
 
   @Override
   public Object get(ByteBuffer buf, int position)
   {
-    int value = buf.getInt();
+    long value = buf.getLong(position);
     return value == 1;
   }
 
   @Override
   public float getFloat(ByteBuffer buf, int position)
   {
-    return (int) get(buf, position);
+    return (float) get(buf, position);
   }
 
   @Override
   public long getLong(ByteBuffer buf, int position)
   {
-    return (int) get(buf, position);
+    return (long) get(buf, position);
   }
 
   @Override

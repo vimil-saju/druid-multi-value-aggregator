@@ -173,7 +173,7 @@ public class MultiValueContainsAggregatorFactory extends AggregatorFactory
   @Override
   public int getMaxIntermediateSize()
   {
-    return Integer.BYTES;
+    return Long.BYTES;
   }
 
   @Override

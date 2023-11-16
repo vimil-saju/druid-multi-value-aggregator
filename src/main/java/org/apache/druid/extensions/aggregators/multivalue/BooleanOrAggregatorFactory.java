@@ -29,6 +29,7 @@ import org.apache.druid.query.cache.CacheKeyBuilder;
 import org.apache.druid.segment.BaseObjectColumnValueSelector;
 import org.apache.druid.segment.ColumnSelectorFactory;
 import org.apache.druid.segment.NilColumnValueSelector;
+import org.apache.druid.segment.column.ColumnType;
 
 import javax.annotation.Nullable;
 import java.nio.ByteBuffer;
@@ -165,6 +166,18 @@ public class BooleanOrAggregatorFactory extends AggregatorFactory
   public int getMaxIntermediateSize()
   {
     return Long.BYTES;
+  }
+
+  @Override
+  public ColumnType getIntermediateType()
+  {
+    return ColumnType.LONG;
+  }
+
+  @Override
+  public ColumnType getResultType()
+  {
+    return ColumnType.LONG;
   }
 
   @Override

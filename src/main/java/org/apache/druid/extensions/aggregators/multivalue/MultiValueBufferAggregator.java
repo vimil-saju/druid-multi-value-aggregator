@@ -106,11 +106,12 @@ public class MultiValueBufferAggregator implements BufferAggregator
   @Override
   public Object get(ByteBuffer buf, int position)
   {
+    ByteBuffer mutableBuf = buf.duplicate();
     List<String> values = new ArrayList<>();
-    int elementCount = buf.getInt();
-
+    int elementCount = mutableBuf.getInt(position);
+    mutableBuf.position(mutableBuf.position() + Integer.BYTES);
     for (int i = 0; i < elementCount; i++) {
-      values.add(StringUtils.fromUtf8(buf));
+      values.add(StringUtils.fromUtf8(mutableBuf));
     }
 
     return new SerializableMultiValue(values.toArray(new String[0]));

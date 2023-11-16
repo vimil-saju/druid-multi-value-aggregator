@@ -41,32 +41,32 @@ public class BooleanOrBufferAggregator implements BufferAggregator
   @Override
   public void init(ByteBuffer buf, int position)
   {
-    buf.putInt(position, 0);
+    buf.putLong(position, 0);
   }
 
   @Override
   public void aggregate(ByteBuffer buf, int position)
   {
-    buf.putInt(position, Math.max(buf.getInt(position), selector.getObject() ? 1 : 0));
+    buf.putLong(position, Math.max(buf.getLong(position), selector.getObject() ? 1 : 0));
   }
 
   @Nullable
   @Override
   public Object get(ByteBuffer buf, int position)
   {
-    return buf.getInt();
+    return buf.getLong(position);
   }
 
   @Override
   public float getFloat(ByteBuffer buf, int position)
   {
-    return buf.getInt();
+    return (float) get(buf, position);
   }
 
   @Override
   public long getLong(ByteBuffer buf, int position)
   {
-    return buf.getInt();
+    return (long) get(buf, position);
   }
 
   @Override
