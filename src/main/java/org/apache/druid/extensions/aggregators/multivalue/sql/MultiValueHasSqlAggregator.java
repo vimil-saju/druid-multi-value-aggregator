@@ -49,7 +49,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MultiValueContainsSqlAggregator implements SqlAggregator
+public class MultiValueHasSqlAggregator implements SqlAggregator
 {
   private static final String NAME = "MV_CONTAINS";
 
