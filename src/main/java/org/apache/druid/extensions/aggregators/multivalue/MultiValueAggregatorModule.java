@@ -27,6 +27,7 @@ import org.apache.druid.extensions.aggregators.multivalue.has.MultiValueHasAggre
 import org.apache.druid.extensions.aggregators.multivalue.sql.MultiValueHasOperatorConversion;
 import org.apache.druid.extensions.aggregators.multivalue.sql.MultiValueHasOptimizableFilter;
 import org.apache.druid.extensions.aggregators.multivalue.sql.MultiValueHasSqlAggregator;
+import org.apache.druid.extensions.aggregators.multivalue.transform.MultiValueArrayTransform;
 import org.apache.druid.initialization.DruidModule;
 import org.apache.druid.segment.serde.ComplexMetrics;
 import org.apache.druid.sql.guice.SqlBindings;
@@ -44,7 +45,8 @@ public class MultiValueAggregatorModule implements DruidModule
         .registerSubtypes(
           new NamedType(MultiValueAggregatorFactory.class, "multiValue"),
           new NamedType(MultiValueHasAggregatorFactory.class, "multiValueAggHas"),
-          new NamedType(MultiValueHasOptimizableFilter.class, "multiValueHas")
+          new NamedType(MultiValueHasOptimizableFilter.class, "multiValueHas"),
+          new NamedType(MultiValueArrayTransform.class, "multiValueArrayTransform")
         )
     );
   }
