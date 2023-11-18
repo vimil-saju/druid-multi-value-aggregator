@@ -29,6 +29,7 @@ import org.apache.druid.segment.transform.Transform;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -85,14 +86,20 @@ public class MultiValueArrayTransform implements Transform
     @Override
     public Object eval(Row row)
     {
+      return evalDimension(row);
+    }
+
+    @Override
+    public List<String> evalDimension(Row row)
+    {
       Object obj = row.getRaw(fieldName);
       if (obj instanceof Map) {
-        return ((Map) obj).get("values");
+        return (List<String>) ((Map) obj).get("values");
       }
       if (obj instanceof SerializableMultiValue) {
         return Arrays.asList(((SerializableMultiValue) obj).getValues());
       }
-      return null;
+      return Collections.emptyList();
     }
   }
 }
